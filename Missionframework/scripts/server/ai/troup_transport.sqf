@@ -12,7 +12,7 @@ private _unload_distance = 500;
 private _crewcount = count crew _transVeh;
 
 waitUntil {
-    sleep 0.2;
+    sleep 2;
     !(alive _transVeh) ||
     !(alive (driver _transVeh)) ||
     (((_transVeh distance _objPos) < _unload_distance) && !(surfaceIsWater (getpos _transVeh)))
@@ -28,45 +28,9 @@ if ((alive _transVeh) && (alive (driver _transVeh))) then {
     {_x moveInCargo _transVeh} forEach (units _infGrp);
 
     while {(count (waypoints _infGrp)) != 0} do {deleteWaypoint ((waypoints _infGrp) select 0);};
-
-    sleep 3;
-
-    private _transVehWp =  _transGrp addWaypoint [getpos _transVeh, 0,0];
-    _transVehWp setWaypointType "TR UNLOAD";
-    _transVehWp setWaypointCompletionRadius 200;
-
-    private _infWp = _infGrp addWaypoint [getpos _transVeh, 0];
-    _infWp setWaypointType "GETOUT";
-    _infWp setWaypointCompletionRadius 200;
-
-    _infWp synchronizeWaypoint [_transVehWp];
-
-    {unassignVehicle _transVeh} forEach (units _infGrp);
-    _infGrp leaveVehicle _transVeh;
-    (units _infGrp) allowGetIn false;
-
-    private _infWp_2 = _infGrp addWaypoint [getpos _transVeh, 250];
-    _infWp_2 setWaypointType "MOVE";
-    _infWp_2 setWaypointCompletionRadius 5;
-
-    waitUntil {sleep 0.5; _crewcount >= count crew _transVeh};
-
-    sleep 5;
-
     while {(count (waypoints _transGrp)) != 0} do {deleteWaypoint ((waypoints _transGrp) select 0);};
 
-    _transVehWp = _transGrp addWaypoint [_objPos, 100];
-    _transVehWp setWaypointType "SAD";
-    _transVehWp setWaypointSpeed "NORMAL";
-    _transVehWp setWaypointBehaviour "COMBAT";
-    _transVehWp setWaypointCombatMode "RED";
-    _transVehWp setWaypointCompletionRadius 30;
-
-    _transVehWp = _transGrp addWaypoint [_objPos, 100];
-    _transVehWp setWaypointType "SAD";
-
-    _transVehWp = _transGrp addWaypoint [_objPos, 100];
-    _transVehWp setWaypointType "CYCLE";
+    [_transVeh, _objPos, false, 200, 5, false] remoteExec ["lambs_wp_fnc_taskAssault", _transVeh];
 
     sleep 10;
 

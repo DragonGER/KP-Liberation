@@ -7,28 +7,10 @@ while { count (units _grp) > 0 } do {
     if ( reinforcements_sector_under_attack != "" ) then {
 
         while {(count (waypoints _grp)) != 0} do {deleteWaypoint ((waypoints _grp) select 0);};
-        {_x doFollow leader _grp} foreach units _grp;
 
-        _waypoint = _grp addWaypoint [markerpos reinforcements_sector_under_attack, 50];
-        _waypoint setWaypointType "MOVE";
-        _waypoint setWaypointSpeed "FULL";
-        _waypoint setWaypointBehaviour "SAFE";
-        _waypoint setWaypointCombatMode "YELLOW";
-        _waypoint setWaypointCompletionRadius 30;
-        _waypoint = _grp addWaypoint [markerpos reinforcements_sector_under_attack, 50];
-        _waypoint setWaypointSpeed "LIMITED";
-        _waypoint setWaypointType "SAD";
-        _waypoint = _grp addWaypoint [markerpos reinforcements_sector_under_attack, 50];
-        _waypoint setWaypointSpeed "LIMITED";
-        _waypoint setWaypointType "SAD";
-        _waypoint = _grp addWaypoint [markerpos reinforcements_sector_under_attack, 50];
-        _waypoint setWaypointSpeed "LIMITED";
-        _waypoint setWaypointType "CYCLE";
-
+        [_grp, markerPos reinforcements_sector_under_attack] remoteExec ["LAMBS_wp_fnc_taskAssault", _grp];
         sleep 300;
-    };
-
-    if ( reinforcements_sector_under_attack == "" ) then {
+    } else {
         private _sectors_patrol = [];
         private _patrol_startpos = getpos (leader _grp);
         {
@@ -38,8 +20,9 @@ while { count (units _grp) > 0 } do {
         } foreach (sectors_allSectors - blufor_sectors);
 
         while {(count (waypoints _grp)) != 0} do {deleteWaypoint ((waypoints _grp) select 0);};
-        {_x doFollow leader _grp} foreach units _grp;
+        //{_x doFollow leader _grp} foreach units _grp;
 
+        /*
         {
             _waypoint = _grp addWaypoint [markerpos _x, 300];
             _waypoint setWaypointType "MOVE";
@@ -53,8 +36,10 @@ while { count (units _grp) > 0 } do {
         _waypoint setWaypointType "MOVE";
         _waypoint setWaypointCompletionRadius 100;
         _waypoint = _grp addWaypoint [_patrol_startpos , 300];
-        _waypoint setWaypointType "CYCLE";
+        _waypoint setWaypointType "CYCLE";*/
+        //TODO: Test if teleport is a bit too much
+        [_grp, selectRandom _sectors_patrol, 350, [], true, true] remoteExec ["lambs_wp_fnc_taskCamp", _grp];
     };
 
-    waitUntil { sleep 5;(count (units _grp) == 0) || (reinforcements_sector_under_attack != "") };
+    waitUntil { sleep 15;(count (units _grp) == 0) || (reinforcements_sector_under_attack != "") };
 };

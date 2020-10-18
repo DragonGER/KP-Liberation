@@ -19,25 +19,9 @@ while {((getPos (leader _grp)) distance _startpos) < 100} do {
     while {!((waypoints _grp) isEqualTo [])} do {deleteWaypoint ((waypoints _grp) select 0);};
     {_x doFollow leader _grp} forEach units _grp;
 
-    _startpos = getPos (leader _grp);
+    [_grp, getPos _objPos, 350] remoteExec ["lambs_wp_fnc_taskCQB", _grp];
 
-    _waypoint = _grp addWaypoint [_objPos, 100];
-    _waypoint setWaypointType "MOVE";
-    _waypoint setWaypointSpeed "NORMAL";
-    _waypoint setWaypointBehaviour "AWARE";
-    _waypoint setWaypointCombatMode "YELLOW";
-    _waypoint setWaypointCompletionRadius 30;
-
-    _waypoint = _grp addWaypoint [_objPos, 100];
-    _waypoint setWaypointType "SAD";
-    _waypoint = _grp addWaypoint [_objPos, 100];
-    _waypoint setWaypointType "SAD";
-    _waypoint = _grp addWaypoint [_objPos, 100];
-    _waypoint setWaypointType "SAD";
-    _waypoint = _grp addWaypoint [_objPos, 100];
-    _waypoint setWaypointType "CYCLE";
-
-    sleep 90;
+    sleep 60 * 5;
 };
 
 waitUntil {

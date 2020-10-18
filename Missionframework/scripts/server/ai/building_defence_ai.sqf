@@ -1,4 +1,7 @@
-params ["_unit", ["_sector", ""]];
+params [
+    "_unit",
+    ["_sector", ""]
+];
 
 _unit setUnitPos "UP";
 _unit disableAI "PATH";
@@ -7,7 +10,7 @@ private _hostiles = 0;
 private _ratio = 0.4;
 private _range = 40;
 
-while {_move_is_disabled && local _unit && alive _unit && !(captive _unit)} do {
+while {_move_is_disabled && {local _unit} && {alive _unit} && { !(captive _unit) }} do {
 
     if !(_sector isEqualTo "") then {
         _ratio = [_sector] call KPLIB_fnc_getBluforRatio;

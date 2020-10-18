@@ -13,29 +13,7 @@ sleep 1;
 sleep 1;
 
 if (_is_infantry) then {
-    _wpPositions = [
-        _flagpos getPos [random 150, random 360],
-        _flagpos getPos [random 150, random 360],
-        _flagpos getPos [random 150, random 360],
-        _flagpos getPos [random 150, random 360],
-        _flagpos getPos [random 150, random 360]
-    ];
-    _waypoint = _grp addWaypoint [_wpPositions select 0, 10];
-    _waypoint setWaypointType "MOVE";
-    _waypoint setWaypointBehaviour "SAFE";
-    _waypoint setWaypointCombatMode "YELLOW";
-    _waypoint setWaypointSpeed "LIMITED";
-    _waypoint setWaypointCompletionRadius 10;
-
-    _waypoint = _grp addWaypoint [_wpPositions select 1, 10];
-    _waypoint setWaypointType "MOVE";
-    _waypoint = _grp addWaypoint [_wpPositions select 2, 10];
-    _waypoint setWaypointType "MOVE";
-    _waypoint = _grp addWaypoint [_wpPositions select 3, 10];
-    _waypoint setWaypointType "MOVE";
-
-    _waypoint = _grp addWaypoint [_wpPositions select 4, 10];
-    _waypoint setWaypointType "CYCLE";
+    [_grp, _basepos, 400, 6, [], true] remoteExec ["lambs_wp_fnc_taskPatrol", _grp];
 } else {
     _waypoint = _grp addWaypoint [_basepos, 1];
     _waypoint setWaypointType "MOVE";
@@ -45,8 +23,7 @@ if (_is_infantry) then {
     _waypoint setWaypointCompletionRadius 30;
 };
 
-_grp setCurrentWaypoint [_grp, 0];
-
+/*
 waitUntil {
     sleep 10;
     ({alive _x} count (units _grp) == 0) || !(isNull ((leader _grp) findNearestEnemy (leader _grp)))
@@ -83,3 +60,4 @@ if ({alive _x} count (units _grp) > 0) then {
     _waypoint setWaypointType "CYCLE";
     _grp setCurrentWaypoint [_grp, 0];
 };
+*/

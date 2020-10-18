@@ -30,30 +30,4 @@ sleep 1;
 {_x doFollow leader _grp} forEach (units _grp);
 sleep 1;
 
-private _waypoint = _grp addWaypoint [_first_objective, 500];
-_waypoint setWaypointType "MOVE";
-_waypoint setWaypointSpeed "FULL";
-_waypoint setWaypointBehaviour "AWARE";
-_waypoint setWaypointCombatMode "RED";
-
-_waypoint = _grp addWaypoint [_first_objective, 500];
-_waypoint setWaypointType "MOVE";
-_waypoint setWaypointSpeed "FULL";
-_waypoint setWaypointBehaviour "AWARE";
-_waypoint setWaypointCombatMode "RED";
-
-_waypoint = _grp addWaypoint [_first_objective, 500];
-_waypoint setWaypointType "MOVE";
-_waypoint setWaypointSpeed "FULL";
-_waypoint setWaypointBehaviour "AWARE";
-_waypoint setWaypointCombatMode "RED";
-
-for "_i" from 1 to 6 do {
-    _waypoint = _grp addWaypoint [_first_objective, 500];
-    _waypoint setWaypointType "SAD";
-};
-
-_waypoint = _grp addWaypoint [_first_objective, 500];
-_waypoint setWaypointType "CYCLE";
-
-_grp setCurrentWaypoint [_grp, 2];
+[_grp, _first_objective, false, 250, 5, false] remoteExec ["lambs_wp_fnc_taskAssault", _grp];
