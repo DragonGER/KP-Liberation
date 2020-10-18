@@ -93,9 +93,9 @@ execVM "scripts\client\ui\intro.sqf";
 // Commander init
 if (player isEqualTo ([] call KPLIB_fnc_getCommander)) then {
     // Start tutorial
-    if (KP_liberation_tutorial) then {
+    /*if (KP_liberation_tutorial) then {
         [] call KPLIB_fnc_tutorial;
-    };
+    };*/
     // Request Zeus if enabled
     if (KP_liberation_commander_zeus) then {
         [] spawn {

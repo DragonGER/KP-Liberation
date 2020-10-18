@@ -4,6 +4,7 @@ waitUntil { time > 0 };
 
 [] spawn cinematic_camera;
 
+/*
 if ( GRLIB_introduction ) then {
 
     sleep 1;
@@ -12,7 +13,7 @@ if ( GRLIB_introduction ) then {
     cutRsc ["intro2","PLAIN",1,true];
     sleep 10;
 
-};
+}; */
 
 showcaminfo = true;
 dostartgame = 0;
