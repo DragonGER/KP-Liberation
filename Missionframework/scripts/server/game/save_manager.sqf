@@ -546,6 +546,11 @@ publicVariable "GRLIB_vehicle_to_military_base_links";
 publicVariable "GRLIB_permissions";
 save_is_loaded = true; publicVariable "save_is_loaded";
 
+{
+    private _id = [_x, 200] call TF47_core_fnc_registerBase;
+    TF47_lib_fobs pushBack [_x, _id];
+} forEach GRLIB_all_fobs;
+
 [format ["----- Saved data loaded - Time needed: %1 seconds", diag_tickTime - _start], "SAVE"] call KPLIB_fnc_log;
 
 // Start the save loop

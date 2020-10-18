@@ -4,6 +4,10 @@ params [ "_new_fob", "_create_fob_building" ];
 private [ "_fob_building", "_fob_pos" ];
 
 GRLIB_all_fobs pushback _new_fob;
+
+private _id = [_new_fob, 200] call TF47_core_fnc_registerBase;
+TF47_lib_fobs pushBack [_new_fob, _id];
+
 publicVariable "GRLIB_all_fobs";
 
 if ( _create_fob_building ) then {

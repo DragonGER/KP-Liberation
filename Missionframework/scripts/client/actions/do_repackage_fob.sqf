@@ -11,6 +11,10 @@ if (dorepackage > 0) then {
     private _fob = [] call KPLIB_fnc_getNearestFob;
 
     if !(_fob isEqualTo []) then {
+        private _id = TF47_lib_fobs findIf { (_x select 0) isEqualTo _fob };
+        if (_id != -1) then {
+            [TF47_lib_fobs select _id select 1] call TF47_core_fnc_unregisterBase;
+        };
         GRLIB_all_fobs = GRLIB_all_fobs - [_fob];
         KP_liberation_clearances deleteAt (KP_liberation_clearances findIf {(_x select 0) isEqualTo _fob});
         publicVariable "GRLIB_all_fobs";

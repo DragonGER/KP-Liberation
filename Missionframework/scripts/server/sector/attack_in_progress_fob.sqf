@@ -48,6 +48,10 @@ if ( GRLIB_endgame == 0 ) then {
         [_thispos, 2] remoteExec ["remote_call_fob"];
         sleep 3;
         GRLIB_all_fobs = GRLIB_all_fobs - [_thispos];
+        private _id = TF47_lib_fobs findIf { (_x select 0) isEqualTo _thispos };
+        if (_id != -1) then {
+            [TF47_lib_fobs select _id select 1] call TF47_core_fnc_unregisterBase;
+        };
         publicVariable "GRLIB_all_fobs";
         reset_battlegroups_ai = true;
         [_thispos] call KPLIB_fnc_destroyFob;
